@@ -2,25 +2,29 @@ package edu.eduardo.roman;
 
 public class RomanNumbers {
 
-	public static final String[] ROMANOS = new String[] { "I", "V", "X", "L", "C", "D", "M" };
-	public static final Integer[] ALGARISMOS = new Integer[] { 1, 5, 10, 50, 100, 500, 1000 };
+	public static final String[] ROMANS = new String[] { "I", "V", "X", "L", "C", "D", "M" };
+	public static final Integer[] NUMBERS = new Integer[] { 1, 5, 10, 50, 100, 500, 1000 };
 
 	public static void main(String[] args) {
 		RomanNumbers rn = new RomanNumbers();
 		System.out.println(rn.isRomanNum("MMDCLXVI"));
+		System.out.println(rn.isRomanNum("MMMCMXCIX"));
 
-		System.out.println(rn.numToRoman(3999));
+		System.out.println(rn.numToRoman(3999)); // MMMCMXCIX
+		System.out.println(rn.numToRoman(2666)); // MMDCLXVI 
+		System.out.println(rn.romanToNum("MMMCMXCIX")); // 3999
+		System.out.println(rn.romanToNum("MMDCLXVI")); // 2666
 	}
 
 	public boolean isRomanNum(String s) {
 		String[] letras = s.split("");
 		// 1. letters appear in descending order of value;
-		boolean isDescendingOrder = isDescendingOrder(letras);
+//		boolean isDescendingOrder = isDescendingOrder(letras); // this is not true...???
 		// 2. there cannot be more than one occurrence of any of the letters V, L or D,
 		// nor more than four occurrences of any of the letters I, X or C.
 		boolean isBelowLimitOccurrences = isBelowLimitOccurrences(letras);
 
-		return isDescendingOrder && isBelowLimitOccurrences;
+		return /* isDescendingOrder && */ isBelowLimitOccurrences;
 	}
 
 	private boolean isDescendingOrder(String[] letras) {
@@ -29,7 +33,7 @@ public class RomanNumbers {
 		int prevPos = 6;
 		while (isDec && i < letras.length) {
 			String letra = letras[i];
-			int pos = getPos(ROMANOS, letra);
+			int pos = getPos(letra);
 			if (pos > prevPos) {
 				isDec = false;
 			} else {
@@ -74,19 +78,19 @@ public class RomanNumbers {
 		// I, X or C < 5
 		boolean isBelowLimitOccurrences = false;
 		if (occurrences[0] < 5 && occurrences[1] < 2 && occurrences[2] < 5 && occurrences[3] < 2 && occurrences[4] < 5
-				&& occurrences[5] < 2 && occurrences[6] < 4) {
+				&& occurrences[5] < 2 && occurrences[6] < 5) {
 			isBelowLimitOccurrences = true;
 		}
 		return isBelowLimitOccurrences;
 	}
 
-	private int getPos(String[] romanos, String letra) {
+	private int getPos(String letter) {
 		int i = 0;
 		boolean found = false;
-		String l = "";
+		String romanLetter = "";
 		while (!found) {
-			l = romanos[i];
-			if (l.equalsIgnoreCase(letra)) {
+			romanLetter = RomanNumbers.ROMANS[i];
+			if (romanLetter.equalsIgnoreCase(letter)) {
 				found = true;
 			} else {
 				i++;
@@ -117,15 +121,23 @@ public class RomanNumbers {
 	private String getLetters(int r, int pos) {
 		String letters = null;
 		if (pos == 1) {
-			letters = getGroup(r, "I");
+			letters = getGroupLetters(r, "I");
 		} else if (pos == 2) {
-			letters = getGroup(r, "X");
+			letters = getGroupLetters(r, "X");
 		} else if (pos == 3) {
-			letters = getGroup(r, "C");
+			letters = getGroupLetters(r, "C");
 		} else if (pos == 4) {
-			letters = getGroup(r, "M");
+			letters = getGroupLetters(r, "M");
 		}
 		return letters;
+	}
+
+	private String getGroupLetters(int length, String letter) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < length; i++) {
+			sb.append(letter);
+		}
+		return sb.toString();
 	}
 
 	private String treatment(String letters) {
@@ -173,16 +185,27 @@ public class RomanNumbers {
 		return sb.toString();
 	}
 
-	private String getGroup(int length, String letter) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < length; i++) {
-			sb.append(letter);
-		}
-		return sb.toString();
-	}
-
 	public String romanToNum(String num) {
-		return null;
+		int result = 0;
+		String[] romanNum = num.split("");
+		int indexCur = -1;
+		int indexPrev = -1;
+		for (int i = 0; i < romanNum.length; i++) {
+			indexCur = getPos(romanNum[i]);
+			if (i > 0) {
+
+				indexPrev = getPos(romanNum[i - 1]);
+				boolean isPreceededByLesserLetter = indexPrev < indexCur;
+				if (isPreceededByLesserLetter) {
+					result += (RomanNumbers.NUMBERS[indexCur] - (RomanNumbers.NUMBERS[indexPrev] * 2));
+				} else {
+					result += RomanNumbers.NUMBERS[indexCur];
+				}
+			} else {
+				result += RomanNumbers.NUMBERS[indexCur];
+			}
+		}
+		return String.valueOf(result);
 	}
 
 	public String add(String num1, String num2) {
