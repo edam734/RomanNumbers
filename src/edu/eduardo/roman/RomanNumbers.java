@@ -11,37 +11,18 @@ public class RomanNumbers {
 		System.out.println(rn.isRomanNum("MMMCMXCIX"));
 
 		System.out.println(rn.numToRoman(3999)); // MMMCMXCIX
-		System.out.println(rn.numToRoman(2666)); // MMDCLXVI 
+		System.out.println(rn.numToRoman(2666)); // MMDCLXVI
 		System.out.println(rn.romanToNum("MMMCMXCIX")); // 3999
 		System.out.println(rn.romanToNum("MMDCLXVI")); // 2666
 	}
 
+	// rudimentar validation
 	public boolean isRomanNum(String s) {
-		String[] letras = s.split("");
-		// 1. letters appear in descending order of value;
-//		boolean isDescendingOrder = isDescendingOrder(letras); // this is not true...???
-		// 2. there cannot be more than one occurrence of any of the letters V, L or D,
+		String[] letters = s.split("");
+		// there cannot be more than one occurrence of any of the letters V, L or D,
 		// nor more than four occurrences of any of the letters I, X or C.
-		boolean isBelowLimitOccurrences = isBelowLimitOccurrences(letras);
 
-		return /* isDescendingOrder && */ isBelowLimitOccurrences;
-	}
-
-	private boolean isDescendingOrder(String[] letras) {
-		boolean isDec = true;
-		int i = 0;
-		int prevPos = 6;
-		while (isDec && i < letras.length) {
-			String letra = letras[i];
-			int pos = getPos(letra);
-			if (pos > prevPos) {
-				isDec = false;
-			} else {
-				prevPos = pos;
-				i++;
-			}
-		}
-		return isDec;
+		return isBelowLimitOccurrences(letters);
 	}
 
 	private boolean isBelowLimitOccurrences(String[] letras) {
@@ -198,7 +179,7 @@ public class RomanNumbers {
 				if (isPreceededByLesserLetter) {
 					result += (RomanNumbers.NUMBERS[indexCur] - (RomanNumbers.NUMBERS[indexPrev] * 2));
 					continue;
-				} 
+				}
 			}
 			result += RomanNumbers.NUMBERS[indexCur];
 		}
