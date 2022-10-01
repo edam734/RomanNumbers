@@ -6,6 +6,7 @@ public class RomanNumbers {
 	public static final Integer[] NUMBERS = new Integer[] { 1, 5, 10, 50, 100, 500, 1000 };
 
 	public static void main(String[] args) {
+		System.out.println(4 / 10);
 		RomanNumbers rn = new RomanNumbers();
 		System.out.println(rn.isRomanNum("MMDCLXVI"));
 		System.out.println(rn.isRomanNum("MMMCMXCIX"));
@@ -14,6 +15,12 @@ public class RomanNumbers {
 		System.out.println(rn.numToRoman(2666)); // MMDCLXVI
 		System.out.println(rn.romanToNum("MMMCMXCIX")); // 3999
 		System.out.println(rn.romanToNum("MMDCLXVI")); // 2666
+
+		System.out.println(rn.add("CD", "L")); // 400 + 50 -> 450 (CDL)
+		System.out.println(rn.add("CCCXLIX", "CCXXV")); // 349 + 225 -> 574 (DLXXIV)
+		System.out.println(rn.add("MMMDLX", "MMDCCC")); // 3560 + 2800 > 4000
+		System.out.println(rn.diff("CCCXLIX", "CCXXV")); // 349 - 225 -> 124 (CXXIV)
+		System.out.println(rn.diff("CCXXV", "CCCXLIX")); // 225 - 349 < 1
 	}
 
 	// rudimentar validation
@@ -87,7 +94,7 @@ public class RomanNumbers {
 		StringBuilder sb = new StringBuilder();
 		int r = -1;
 		int i = 1;
-		while (r != 0) {
+		while (n != 0) {
 			r = n % 10;
 			n = n / 10;
 			if (r > 0) {
@@ -187,11 +194,23 @@ public class RomanNumbers {
 	}
 
 	public String add(String num1, String num2) {
-		return null;
+		int n1 = Integer.valueOf(romanToNum(num1));
+		int n2 = Integer.valueOf(romanToNum(num2));
+		int total = n1 + n2;
+		if (total >= 4000) {
+			return ">= 4000";
+		}
+		return numToRoman(total);
 	}
 
 	public String diff(String num1, String num2) {
-		return null;
+		int n1 = Integer.valueOf(romanToNum(num1));
+		int n2 = Integer.valueOf(romanToNum(num2));
+		int total = n1 - n2;
+		if (total < 1 || total >= 4000) {
+			return "< 1 or >= 4000";
+		}
+		return numToRoman(total);
 	}
 
 }
