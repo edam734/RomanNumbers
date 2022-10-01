@@ -193,17 +193,14 @@ public class RomanNumbers {
 		for (int i = 0; i < romanNum.length; i++) {
 			indexCur = getPos(romanNum[i]);
 			if (i > 0) {
-
 				indexPrev = getPos(romanNum[i - 1]);
 				boolean isPreceededByLesserLetter = indexPrev < indexCur;
 				if (isPreceededByLesserLetter) {
 					result += (RomanNumbers.NUMBERS[indexCur] - (RomanNumbers.NUMBERS[indexPrev] * 2));
-				} else {
-					result += RomanNumbers.NUMBERS[indexCur];
-				}
-			} else {
-				result += RomanNumbers.NUMBERS[indexCur];
+					continue;
+				} 
 			}
+			result += RomanNumbers.NUMBERS[indexCur];
 		}
 		return String.valueOf(result);
 	}
