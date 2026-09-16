@@ -6,10 +6,15 @@ public class RomanNumbers {
 	public static final int[] NUMBERS = new int[] { 1, 5, 10, 50, 100, 500, 1000 };
 
 	public static void main(String[] args) {
-		System.out.println(4 / 10);
 		RomanNumbers rn = new RomanNumbers();
-		System.out.println(rn.isRomanNum("MMDCLXVI"));
-		System.out.println(rn.isRomanNum("MMMCMXCIX"));
+
+		// test isRomanNum
+		System.out.println(rn.isRomanNum("MMDCLXVI")); // true
+		System.out.println(rn.isRomanNum("MMMCMXCIX")); // false
+		System.out.println(rn.isRomanNum("IIII")); // true
+		System.out.println(rn.isRomanNum("AB")); // true
+		System.out.println(rn.isRomanNum("MMMMI")); // true
+		System.out.println(rn.isRomanNum("iiii")); // false
 
 		System.out.println(rn.numToRoman(3999)); // MMMCMXCIX
 		System.out.println(rn.numToRoman(2666)); // MMDCLXVI
@@ -25,15 +30,18 @@ public class RomanNumbers {
 
 	// rudimentar validation
 	public boolean isRomanNum(String s) {
+		if (s == null || s.isEmpty()) {
+			return false;
+		}
 		String[] letters = s.split("");
 		// there cannot be more than one occurrence of any of the letters V, L or D,
 		// nor more than four occurrences of any of the letters I, X or C.
 
-		return isBelowLimitOccurrences(letters);
+		return isBelowLimitOccurrences(letters)  && isDescendingOrder(letters);
 	}
 
 	private boolean isBelowLimitOccurrences(String[] letters) {
-		int[] occurrences = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		int[] occurrences = new int[7];
         for (String letter : letters) {
             switch (letter) {
                 case "I":
@@ -64,23 +72,32 @@ public class RomanNumbers {
 		// V, L or D < 2
 		// I, X or C < 5
 		boolean isBelowLimitOccurrences = occurrences[0] < 5 && occurrences[1] < 2 && occurrences[2] < 5 && occurrences[3] < 2 && occurrences[4] < 5
-                && occurrences[5] < 2 && occurrences[6] < 5;
+                && occurrences[5] < 2;
         return isBelowLimitOccurrences;
 	}
 
-	private int getPos(String letter) {
-		int i = 0;
-		boolean found = false;
-		String romanLetter;
-		while (!found) {
-			romanLetter = RomanNumbers.ROMANS[i];
-			if (romanLetter.equalsIgnoreCase(letter)) {
-				found = true;
-			} else {
-				i++;
+	private boolean isDescendingOrder(String[] letters) {
+		for (int i = 0; i < letters.length; i++) {
+			if (getPos(letters[i]) == -1) {
+				return false;
+			}
+
+			if (i > 0 && getPos(letters[i - 1]) < getPos(letters[i])) {
+				return false;
 			}
 		}
-		return i;
+
+		return true;
+	}
+
+	private int getPos(String letter) {
+		for (int i = 0; i < ROMANS.length; i++) {
+			if (ROMANS[i].equals(letter)) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 	public String numToRoman(int n) {
