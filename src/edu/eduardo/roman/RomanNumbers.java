@@ -5,28 +5,6 @@ public class RomanNumbers {
     public static final String[] ROMANS = new String[]{"I", "V", "X", "L", "C", "D", "M"};
     public static final int[] NUMBERS = new int[]{1, 5, 10, 50, 100, 500, 1000};
 
-    public static void main(String[] args) {
-
-        // test isRomanNum
-        System.out.println(isRomanNum("MMDCLXVI")); // true
-        System.out.println(isRomanNum("MMMCMXCIX")); // true
-        System.out.println(isRomanNum("IIII")); // false
-        System.out.println(isRomanNum("AB")); // false
-        System.out.println(isRomanNum("MMMMI")); // false
-        System.out.println(isRomanNum("iiii")); // false
-
-        System.out.println(numToRoman(3999)); // MMMCMXCIX
-        System.out.println(numToRoman(2666)); // MMDCLXVI
-        System.out.println(romanToNum("MMMCMXCIX")); // 3999
-        System.out.println(romanToNum("MMDCLXVI")); // 2666
-
-        System.out.println(add("CD", "L")); // 400 + 50 -> 450 (CDL)
-        System.out.println(add("CCCXLIX", "CCXXV")); // 349 + 225 -> 574 (DLXXIV)
-        System.out.println(add("MMMDLX", "MMDCCC")); // 3560 + 2800 > 4000
-        System.out.println(diff("CCCXLIX", "CCXXV")); // 349 - 225 -> 124 (CXXIV)
-        System.out.println(diff("CCXXV", "CCCXLIX")); // 225 - 349 < 1
-    }
-
     public static boolean isRomanNum(String s) {
         if (s == null || s.isEmpty()) {
             return false;
