@@ -64,18 +64,15 @@ public class RomanNumbers {
 		}
 		// V, L or D < 2
 		// I, X or C < 5
-		boolean isBelowLimitOccurrences = false;
-		if (occurrences[0] < 5 && occurrences[1] < 2 && occurrences[2] < 5 && occurrences[3] < 2 && occurrences[4] < 5
-				&& occurrences[5] < 2 && occurrences[6] < 5) {
-			isBelowLimitOccurrences = true;
-		}
-		return isBelowLimitOccurrences;
+		boolean isBelowLimitOccurrences = occurrences[0] < 5 && occurrences[1] < 2 && occurrences[2] < 5 && occurrences[3] < 2 && occurrences[4] < 5
+                && occurrences[5] < 2 && occurrences[6] < 5;
+        return isBelowLimitOccurrences;
 	}
 
 	private int getPos(String letter) {
 		int i = 0;
 		boolean found = false;
-		String romanLetter = "";
+		String romanLetter;
 		while (!found) {
 			romanLetter = RomanNumbers.ROMANS[i];
 			if (romanLetter.equalsIgnoreCase(letter)) {
@@ -92,7 +89,7 @@ public class RomanNumbers {
 			return null;
 		}
 		StringBuilder sb = new StringBuilder();
-		int r = -1;
+		int r;
 		int i = 1;
 		while (n != 0) {
 			r = n % 10;
@@ -121,11 +118,7 @@ public class RomanNumbers {
 	}
 
 	private String getGroupLetters(int length, String letter) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < length; i++) {
-			sb.append(letter);
-		}
-		return sb.toString();
+        return String.valueOf(letter).repeat(Math.max(0, length));
 	}
 
 	private String treatment(String letters) {
@@ -147,18 +140,14 @@ public class RomanNumbers {
 	private String treat(int length, String small, String middle, String big) {
 		StringBuilder sb = new StringBuilder();
 		if (length < 4) {
-			for (int i = 0; i < length; i++) {
-				sb.append(small);
-			}
+            sb.append(String.valueOf(small).repeat(Math.max(0, length)));
 		} else if (length == 4) {
 			sb.append(small).append(middle);
 		} else if (length == 5) {
 			sb.append(middle);
-		} else if (length > 5 && length < 9) {
+		} else if (length < 9) {
 			sb.append(middle);
-			for (int i = 0; i < length - 5; i++) {
-				sb.append(small);
-			}
+            sb.append(String.valueOf(small).repeat(length - 5));
 		} else if (length == 9) {
 			sb.append(small).append(big);
 		}
@@ -166,18 +155,14 @@ public class RomanNumbers {
 	}
 
 	private String milleniumTreat(int length) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < length; i++) {
-			sb.append("M");
-		}
-		return sb.toString();
+        return "M".repeat(Math.max(0, length));
 	}
 
 	public String romanToNum(String num) {
 		int result = 0;
 		String[] romanNum = num.split("");
-		int indexCur = -1;
-		int indexPrev = -1;
+		int indexCur;
+		int indexPrev;
 		for (int i = 0; i < romanNum.length; i++) {
 			indexCur = getPos(romanNum[i]);
 			if (i > 0) {
@@ -194,8 +179,8 @@ public class RomanNumbers {
 	}
 
 	public String add(String num1, String num2) {
-		int n1 = Integer.valueOf(romanToNum(num1));
-		int n2 = Integer.valueOf(romanToNum(num2));
+		int n1 = Integer.parseInt(romanToNum(num1));
+		int n2 = Integer.parseInt(romanToNum(num2));
 		int total = n1 + n2;
 		if (total >= 4000) {
 			return ">= 4000";
@@ -204,8 +189,8 @@ public class RomanNumbers {
 	}
 
 	public String diff(String num1, String num2) {
-		int n1 = Integer.valueOf(romanToNum(num1));
-		int n2 = Integer.valueOf(romanToNum(num2));
+		int n1 = Integer.parseInt(romanToNum(num1));
+		int n2 = Integer.parseInt(romanToNum(num2));
 		int total = n1 - n2;
 		if (total < 1 || total >= 4000) {
 			return "< 1 or >= 4000";
