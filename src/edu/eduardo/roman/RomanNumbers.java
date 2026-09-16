@@ -3,7 +3,7 @@ package edu.eduardo.roman;
 public class RomanNumbers {
 
 	public static final String[] ROMANS = new String[] { "I", "V", "X", "L", "C", "D", "M" };
-	public static final Integer[] NUMBERS = new Integer[] { 1, 5, 10, 50, 100, 500, 1000 };
+	public static final int[] NUMBERS = new int[] { 1, 5, 10, 50, 100, 500, 1000 };
 
 	public static void main(String[] args) {
 		System.out.println(4 / 10);
