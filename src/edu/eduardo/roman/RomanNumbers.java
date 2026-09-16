@@ -72,16 +72,11 @@ public class RomanNumbers {
     private static boolean isDescendingOrder(String[] letters) {
         for (int i = 0; i <
                 letters.length; i++) {
-            if (getPos(letters[i]) ==
-                    -1) {
+            if (getPos(letters[i]) == -1) {
                 return false;
             }
 
-            if (i >
-                    0 &&
-                    getPos(letters[i -
-                            1]) <
-                            getPos(letters[i])) {
+            if (i > 0 && getPos(letters[i - 1]) < getPos(letters[i])) {
                 return false;
             }
         }
@@ -90,8 +85,7 @@ public class RomanNumbers {
     }
 
     private static int getPos(String letter) {
-        for (int i = 0; i <
-                ROMANS.length; i++) {
+        for (int i = 0; i < ROMANS.length; i++) {
             if (ROMANS[i].equals(letter)) {
                 return i;
             }
@@ -101,23 +95,16 @@ public class RomanNumbers {
     }
 
     public static String numToRoman(int n) {
-        if (n <=
-                0 ||
-                n >=
-                        4000) {
+        if (n <= 0 || n >= 4000) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
         int r;
         int i = 1;
-        while (n !=
-                0) {
-            r = n %
-                    10;
-            n = n /
-                    10;
-            if (r >
-                    0) {
+        while (n != 0) {
+            r = n % 10;
+            n = n / 10;
+            if (r > 0) {
                 String letters = getLetters(r, i);
                 sb.insert(0, treatment(letters));
             }
@@ -128,17 +115,13 @@ public class RomanNumbers {
 
     private static String getLetters(int r, int pos) {
         String letters = null;
-        if (pos ==
-                1) {
+        if (pos == 1) {
             letters = getGroupLetters(r, "I");
-        } else if (pos ==
-                2) {
+        } else if (pos == 2) {
             letters = getGroupLetters(r, "X");
-        } else if (pos ==
-                3) {
+        } else if (pos == 3) {
             letters = getGroupLetters(r, "C");
-        } else if (pos ==
-                4) {
+        } else if (pos == 4) {
             letters = getGroupLetters(r, "M");
         }
         return letters;
@@ -166,22 +149,16 @@ public class RomanNumbers {
 
     private static String treat(int length, String small, String middle, String big) {
         StringBuilder sb = new StringBuilder();
-        if (length <
-                4) {
+        if (length < 4) {
             sb.append(String.valueOf(small).repeat(Math.max(0, length)));
-        } else if (length ==
-                4) {
+        } else if (length == 4) {
             sb.append(small).append(middle);
-        } else if (length ==
-                5) {
+        } else if (length == 5) {
             sb.append(middle);
-        } else if (length <
-                9) {
+        } else if (length < 9) {
             sb.append(middle);
-            sb.append(String.valueOf(small).repeat(length -
-                    5));
-        } else if (length ==
-                9) {
+            sb.append(String.valueOf(small).repeat(length - 5));
+        } else if (length == 9) {
             sb.append(small).append(big);
         }
         return sb.toString();
@@ -196,19 +173,13 @@ public class RomanNumbers {
         String[] romanNum = num.split("");
         int indexCur;
         int indexPrev;
-        for (int i = 0; i <
-                romanNum.length; i++) {
+        for (int i = 0; i < romanNum.length; i++) {
             indexCur = getPos(romanNum[i]);
-            if (i >
-                    0) {
-                indexPrev = getPos(romanNum[i -
-                        1]);
-                boolean isPreceededByLesserLetter = indexPrev <
-                        indexCur;
+            if (i > 0) {
+                indexPrev = getPos(romanNum[i - 1]);
+                boolean isPreceededByLesserLetter = indexPrev < indexCur;
                 if (isPreceededByLesserLetter) {
-                    result += (NUMBERS[indexCur] -
-                            (NUMBERS[indexPrev] *
-                                    2));
+                    result += (NUMBERS[indexCur] - (NUMBERS[indexPrev] * 2));
                     continue;
                 }
             }
@@ -220,10 +191,8 @@ public class RomanNumbers {
     public static String add(String num1, String num2) {
         int n1 = Integer.parseInt(romanToNum(num1));
         int n2 = Integer.parseInt(romanToNum(num2));
-        int total = n1 +
-                n2;
-        if (total >=
-                4000) {
+        int total = n1 + n2;
+        if (total >= 4000) {
             return ">= 4000";
         }
         return numToRoman(total);
@@ -232,12 +201,8 @@ public class RomanNumbers {
     public static String diff(String num1, String num2) {
         int n1 = Integer.parseInt(romanToNum(num1));
         int n2 = Integer.parseInt(romanToNum(num2));
-        int total = n1 -
-                n2;
-        if (total <
-                1 ||
-                total >=
-                        4000) {
+        int total = n1 - n2;
+        if (total < 1 || total >= 4000) {
             return "< 1 or >= 4000";
         }
         return numToRoman(total);
