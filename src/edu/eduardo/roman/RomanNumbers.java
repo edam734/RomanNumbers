@@ -6,30 +6,29 @@ public class RomanNumbers {
 	public static final int[] NUMBERS = new int[] { 1, 5, 10, 50, 100, 500, 1000 };
 
 	public static void main(String[] args) {
-		RomanNumbers rn = new RomanNumbers();
 
 		// test isRomanNum
-		System.out.println(rn.isRomanNum("MMDCLXVI")); // true
-		System.out.println(rn.isRomanNum("MMMCMXCIX")); // false
-		System.out.println(rn.isRomanNum("IIII")); // true
-		System.out.println(rn.isRomanNum("AB")); // true
-		System.out.println(rn.isRomanNum("MMMMI")); // true
-		System.out.println(rn.isRomanNum("iiii")); // false
+		System.out.println(isRomanNum("MMDCLXVI")); // true
+		System.out.println(isRomanNum("MMMCMXCIX")); // false
+		System.out.println(isRomanNum("IIII")); // true
+		System.out.println(isRomanNum("AB")); // true
+		System.out.println(isRomanNum("MMMMI")); // true
+		System.out.println(isRomanNum("iiii")); // false
 
-		System.out.println(rn.numToRoman(3999)); // MMMCMXCIX
-		System.out.println(rn.numToRoman(2666)); // MMDCLXVI
-		System.out.println(rn.romanToNum("MMMCMXCIX")); // 3999
-		System.out.println(rn.romanToNum("MMDCLXVI")); // 2666
+		System.out.println(numToRoman(3999)); // MMMCMXCIX
+		System.out.println(numToRoman(2666)); // MMDCLXVI
+		System.out.println(romanToNum("MMMCMXCIX")); // 3999
+		System.out.println(romanToNum("MMDCLXVI")); // 2666
 
-		System.out.println(rn.add("CD", "L")); // 400 + 50 -> 450 (CDL)
-		System.out.println(rn.add("CCCXLIX", "CCXXV")); // 349 + 225 -> 574 (DLXXIV)
-		System.out.println(rn.add("MMMDLX", "MMDCCC")); // 3560 + 2800 > 4000
-		System.out.println(rn.diff("CCCXLIX", "CCXXV")); // 349 - 225 -> 124 (CXXIV)
-		System.out.println(rn.diff("CCXXV", "CCCXLIX")); // 225 - 349 < 1
+		System.out.println(add("CD", "L")); // 400 + 50 -> 450 (CDL)
+		System.out.println(add("CCCXLIX", "CCXXV")); // 349 + 225 -> 574 (DLXXIV)
+		System.out.println(add("MMMDLX", "MMDCCC")); // 3560 + 2800 > 4000
+		System.out.println(diff("CCCXLIX", "CCXXV")); // 349 - 225 -> 124 (CXXIV)
+		System.out.println(diff("CCXXV", "CCCXLIX")); // 225 - 349 < 1
 	}
 
 	// rudimentar validation
-	public boolean isRomanNum(String s) {
+	public static boolean isRomanNum(String s) {
 		if (s == null || s.isEmpty()) {
 			return false;
 		}
@@ -40,7 +39,7 @@ public class RomanNumbers {
 		return isBelowLimitOccurrences(letters)  && isDescendingOrder(letters);
 	}
 
-	private boolean isBelowLimitOccurrences(String[] letters) {
+	private static boolean isBelowLimitOccurrences(String[] letters) {
 		int[] occurrences = new int[7];
         for (String letter : letters) {
             switch (letter) {
@@ -76,7 +75,7 @@ public class RomanNumbers {
         return isBelowLimitOccurrences;
 	}
 
-	private boolean isDescendingOrder(String[] letters) {
+	private static boolean isDescendingOrder(String[] letters) {
 		for (int i = 0; i < letters.length; i++) {
 			if (getPos(letters[i]) == -1) {
 				return false;
@@ -90,7 +89,7 @@ public class RomanNumbers {
 		return true;
 	}
 
-	private int getPos(String letter) {
+	private static int getPos(String letter) {
 		for (int i = 0; i < ROMANS.length; i++) {
 			if (ROMANS[i].equals(letter)) {
 				return i;
@@ -100,7 +99,7 @@ public class RomanNumbers {
 		return -1;
 	}
 
-	public String numToRoman(int n) {
+	public static String numToRoman(int n) {
 		if (n <= 0 || n >= 4000) {
 			return null;
 		}
@@ -119,7 +118,7 @@ public class RomanNumbers {
 		return sb.toString();
 	}
 
-	private String getLetters(int r, int pos) {
+	private static String getLetters(int r, int pos) {
 		String letters = null;
 		if (pos == 1) {
 			letters = getGroupLetters(r, "I");
@@ -133,11 +132,11 @@ public class RomanNumbers {
 		return letters;
 	}
 
-	private String getGroupLetters(int length, String letter) {
+	private static String getGroupLetters(int length, String letter) {
         return String.valueOf(letter).repeat(Math.max(0, length));
 	}
 
-	private String treatment(String letters) {
+	private static String treatment(String letters) {
 		String result = "";
 		int length = letters.length();
 		if (letters.contains("I")) {
@@ -153,7 +152,7 @@ public class RomanNumbers {
 		return result;
 	}
 
-	private String treat(int length, String small, String middle, String big) {
+	private static String treat(int length, String small, String middle, String big) {
 		StringBuilder sb = new StringBuilder();
 		if (length < 4) {
             sb.append(String.valueOf(small).repeat(Math.max(0, length)));
@@ -170,11 +169,11 @@ public class RomanNumbers {
 		return sb.toString();
 	}
 
-	private String milleniumTreat(int length) {
+	private static String milleniumTreat(int length) {
         return "M".repeat(Math.max(0, length));
 	}
 
-	public String romanToNum(String num) {
+	public static String romanToNum(String num) {
 		int result = 0;
 		String[] romanNum = num.split("");
 		int indexCur;
@@ -185,16 +184,16 @@ public class RomanNumbers {
 				indexPrev = getPos(romanNum[i - 1]);
 				boolean isPreceededByLesserLetter = indexPrev < indexCur;
 				if (isPreceededByLesserLetter) {
-					result += (RomanNumbers.NUMBERS[indexCur] - (RomanNumbers.NUMBERS[indexPrev] * 2));
+					result += (NUMBERS[indexCur] - (NUMBERS[indexPrev] * 2));
 					continue;
 				}
 			}
-			result += RomanNumbers.NUMBERS[indexCur];
+			result += NUMBERS[indexCur];
 		}
 		return String.valueOf(result);
 	}
 
-	public String add(String num1, String num2) {
+	public static String add(String num1, String num2) {
 		int n1 = Integer.parseInt(romanToNum(num1));
 		int n2 = Integer.parseInt(romanToNum(num2));
 		int total = n1 + n2;
@@ -204,7 +203,7 @@ public class RomanNumbers {
 		return numToRoman(total);
 	}
 
-	public String diff(String num1, String num2) {
+	public static String diff(String num1, String num2) {
 		int n1 = Integer.parseInt(romanToNum(num1));
 		int n2 = Integer.parseInt(romanToNum(num2));
 		int total = n1 - n2;
