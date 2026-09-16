@@ -30,9 +30,7 @@ String roman = RomanNumbers.numToRoman(1994);
 
 [Download the latest release](https://github.com/edam734/RomanNumbers/releases/latest)
 
-For regular use, download:
-
-`RomanNumbers.jar`
+For regular use, download: `RomanNumbers.jar`
 
 The source code archives shown by GitHub are generated automatically.
 
