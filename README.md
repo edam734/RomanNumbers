@@ -28,7 +28,7 @@ String roman = RomanNumbers.numToRoman(1994);
 
 ### Download
 
-Download the latest release from the **Releases** section.
+[Download the latest release](https://github.com/edam734/RomanNumbers/releases/latest)
 
 For regular use, download:
 
