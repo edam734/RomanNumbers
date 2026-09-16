@@ -1,20 +1,45 @@
 # RomanNumbers
 
-A simple Java project for working with Roman numerals.
+A simple Java library for working with Roman numerals.
 
 ### Features
 
-* Validate Roman numerals
-* Convert integers to Roman numerals
-* Convert Roman numerals to integers
-* Add Roman numerals
-* Subtract Roman numerals
+- Validate Roman numerals
+- Convert integers to Roman numerals
+- Convert Roman numerals to integers
+- Add Roman numerals
+- Subtract Roman numerals
+- Supports values from 1 to 3999
+
+### Usage
+
+Add `RomanNumbers.jar` to your project and import:
+
+```java
+import edu.edam.roman.RomanNumbers;
+```
+
+Example:
+
+```java
+int value = RomanNumbers.romanToNum("MCMXCIV");
+String roman = RomanNumbers.numToRoman(1994);
+```
+
+### Download
+
+Download the latest release from the **Releases** section.
+
+For regular use, download:
+
+`RomanNumbers.jar`
+
+The source code archives shown by GitHub are generated automatically.
 
 ### Notes
 
-The project currently follows an additive Roman numeral system, where values are written in descending order and forms
-such as `IIII`, `XXXX`, and `CCCC` are considered valid.
+The project uses standard subtractive Roman numeral notation, including forms such as `IV`, `IX`, `XL`, `XC`, `CD`, and `CM`.
 
-Support for the more common subtractive notation, such as `IV`, `XL`, and `CD`, may be added later.
+The supported range is from 1 to 3999.
 
 <br>
