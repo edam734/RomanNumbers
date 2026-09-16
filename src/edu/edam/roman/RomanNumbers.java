@@ -1,10 +1,26 @@
 package edu.edam.roman;
 
+/**
+ * Utility class for validating, converting, adding and subtracting
+ * Roman numerals using standard subtractive notation.
+ *
+ * <p>The supported range is from 1 to 3999.</p>
+ *
+ * @author Eduardo
+ */
 public class RomanNumbers {
 
     public static final String[] ROMANS = new String[]{"I", "V", "X", "L", "C", "D", "M"};
     public static final int[] NUMBERS = new int[]{1, 5, 10, 50, 100, 500, 1000};
 
+    /**
+     * Checks whether the given string is a valid Roman numeral
+     * using standard subtractive notation.
+     *
+     * @param s the string to validate
+     * @return {@code true} if the string is a valid Roman numeral;
+     *         {@code false} otherwise
+     */
     public static boolean isRomanNum(String s) {
         if (s == null || s.isEmpty()) {
             return false;
@@ -23,6 +39,13 @@ public class RomanNumbers {
         return -1;
     }
 
+    /**
+     * Converts an integer to its Roman numeral representation.
+     *
+     * @param n the integer to convert, between 1 and 3999
+     * @return the corresponding Roman numeral, or {@code null}
+     *         if the value is outside the supported range
+     */
     public static String numToRoman(int n) {
         if (n <= 0 || n >= 4000) {
             return null;
@@ -98,6 +121,13 @@ public class RomanNumbers {
         return "M".repeat(length);
     }
 
+    /**
+     * Converts a valid Roman numeral to its integer value.
+     *
+     * @param num the Roman numeral to convert
+     * @return the corresponding integer value
+     * @throws IllegalArgumentException if {@code num} is not a valid Roman numeral
+     */
     public static int romanToNum(String num) {
         if (!isRomanNum(num)) {
             throw new IllegalArgumentException("Invalid Roman numeral");
@@ -119,6 +149,15 @@ public class RomanNumbers {
         return result;
     }
 
+    /**
+     * Adds two Roman numerals and returns the result as a Roman numeral.
+     *
+     * @param num1 the first Roman numeral
+     * @param num2 the second Roman numeral
+     * @return the Roman numeral representing the sum, or {@code ">= 4000"}
+     *         if the result is outside the supported range
+     * @throws IllegalArgumentException if either argument is not a valid Roman numeral
+     */
     public static String add(String num1, String num2) {
         int n1 = romanToNum(num1);
         int n2 = romanToNum(num2);
@@ -129,6 +168,15 @@ public class RomanNumbers {
         return numToRoman(total);
     }
 
+    /**
+     * Subtracts the second Roman numeral from the first.
+     *
+     * @param num1 the Roman numeral from which to subtract
+     * @param num2 the Roman numeral to subtract
+     * @return the Roman numeral representing the difference, or {@code "< 1"}
+     *         if the result is less than 1
+     * @throws IllegalArgumentException if either argument is not a valid Roman numeral
+     */
     public static String diff(String num1, String num2) {
         int n1 = romanToNum(num1);
         int n2 = romanToNum(num2);
@@ -138,5 +186,4 @@ public class RomanNumbers {
         }
         return numToRoman(total);
     }
-
 }
