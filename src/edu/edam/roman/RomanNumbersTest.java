@@ -1,4 +1,4 @@
-package edu.eduardo.roman;
+package edu.edam.roman;
 
 public class RomanNumbersTest {
 
