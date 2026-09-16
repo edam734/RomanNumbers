@@ -27,11 +27,8 @@ public class RomanNumbers {
         System.out.println(diff("CCXXV", "CCCXLIX")); // 225 - 349 < 1
     }
 
-    // rudimentar validation
     public static boolean isRomanNum(String s) {
-        if (s ==
-                null ||
-                s.isEmpty()) {
+        if (s == null || s.isEmpty()) {
             return false;
         }
         String[] letters = s.split("");
@@ -70,8 +67,7 @@ public class RomanNumbers {
     }
 
     private static boolean isDescendingOrder(String[] letters) {
-        for (int i = 0; i <
-                letters.length; i++) {
+        for (int i = 0; i < letters.length; i++) {
             if (getPos(letters[i]) == -1) {
                 return false;
             }
@@ -99,11 +95,12 @@ public class RomanNumbers {
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        int r;
         int i = 1;
+
         while (n != 0) {
-            r = n % 10;
+            int r = n % 10;
             n = n / 10;
+
             if (r > 0) {
                 String letters = getLetters(r, i);
                 sb.insert(0, treatment(letters));
@@ -171,12 +168,10 @@ public class RomanNumbers {
     public static String romanToNum(String num) {
         int result = 0;
         String[] romanNum = num.split("");
-        int indexCur;
-        int indexPrev;
         for (int i = 0; i < romanNum.length; i++) {
-            indexCur = getPos(romanNum[i]);
+            int indexCur = getPos(romanNum[i]);
             if (i > 0) {
-                indexPrev = getPos(romanNum[i - 1]);
+                int indexPrev = getPos(romanNum[i - 1]);
                 boolean isPreceededByLesserLetter = indexPrev < indexCur;
                 if (isPreceededByLesserLetter) {
                     result += (NUMBERS[indexCur] - (NUMBERS[indexPrev] * 2));
