@@ -32,10 +32,10 @@ public class RomanNumbers {
 		return isBelowLimitOccurrences(letters);
 	}
 
-	private boolean isBelowLimitOccurrences(String[] letras) {
+	private boolean isBelowLimitOccurrences(String[] letters) {
 		int[] occurrences = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-        for (String letra : letras) {
-            switch (letra) {
+        for (String letter : letters) {
+            switch (letter) {
                 case "I":
                     occurrences[0]++;
                     break;
