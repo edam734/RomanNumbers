@@ -34,34 +34,33 @@ public class RomanNumbers {
 
 	private boolean isBelowLimitOccurrences(String[] letras) {
 		int[] occurrences = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		for (int i = 0; i < letras.length; i++) {
-			String letra = letras[i];
-			switch (letra) {
-			case "I":
-				occurrences[0]++;
-				break;
-			case "V":
-				occurrences[1]++;
-				break;
-			case "X":
-				occurrences[2]++;
-				break;
-			case "L":
-				occurrences[3]++;
-				break;
-			case "C":
-				occurrences[4]++;
-				break;
-			case "D":
-				occurrences[5]++;
-				break;
-			case "M":
-				occurrences[6]++;
-				break;
-			default:
-				// M doesn't count
-			}
-		}
+        for (String letra : letras) {
+            switch (letra) {
+                case "I":
+                    occurrences[0]++;
+                    break;
+                case "V":
+                    occurrences[1]++;
+                    break;
+                case "X":
+                    occurrences[2]++;
+                    break;
+                case "L":
+                    occurrences[3]++;
+                    break;
+                case "C":
+                    occurrences[4]++;
+                    break;
+                case "D":
+                    occurrences[5]++;
+                    break;
+                case "M":
+                    occurrences[6]++;
+                    break;
+                default:
+                    // M doesn't count
+            }
+        }
 		// V, L or D < 2
 		// I, X or C < 5
 		boolean isBelowLimitOccurrences = occurrences[0] < 5 && occurrences[1] < 2 && occurrences[2] < 5 && occurrences[3] < 2 && occurrences[4] < 5
